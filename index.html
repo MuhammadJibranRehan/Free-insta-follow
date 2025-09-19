@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GetLikes — Free Instagram Followers (Demo)</title>
+  <style>
+    :root{--accent:#06b6d4;--muted:#555}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:#fff;color:#222;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .wrap{width:100%;max-width:980px}
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    header h1{font-size:20px;margin:0}
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px}
+
+    .card{background:#fafafa;border-radius:12px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid #eee}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}
+    input[type=text], input[type=email], input[type=password], select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #ccc;background:#fff;color:inherit;font-size:14px}
+    .row{display:flex;gap:12px}
+    .muted{color:var(--muted);font-size:13px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-weight:600}
+    .btn.ghost{background:#eee;border:1px solid #ddd;color:#333}
+    .notice{background:#f9f9f9;padding:10px;border-radius:8px;margin-bottom:12px;font-size:13px;border:1px solid #ddd}
+    .disabled{opacity:0.5;pointer-events:none}
+    .small{font-size:13px}
+    .rangeWrap{display:flex;align-items:center;gap:12px}
+    .faux-result{background:#fff;padding:12px;border-radius:8px;border:1px solid #ddd}
+    footer{margin-top:12px;color:var(--muted);font-size:12px}
+    .searchRow{display:flex;gap:8px}
+    .help{font-size:13px;color:var(--muted);margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>GetLikes — Free Instagram Followers (Demo)</h1>
+      <div class="muted">Demo front-end only • No real follower generation</div>
+    </header>
+
+    <div class="grid">
+      <main class="card">
+        <div class="notice">
+          <strong>⚠️ Important:</strong> This is a demo UI only. It does not contact Instagram or provide real followers. Do not enter real passwords.
+        </div>
+
+        <form id="freeForm">
+          <label for="username">Instagram Username *</label>
+          <input id="username" name="username" type="text" placeholder="e.g. muhammad_jibran_rehan" required />
+
+          <div style="height:12px"></div>
+
+          <label for="email">Email Address *</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+
+          <div style="height:12px"></div>
+
+          <label for="password">Password (demo field)</label>
+          <input id="password" name="password" type="password" placeholder="Optional — do not use real password" />
+
+          <div style="height:12px"></div>
+
+          <label for="followers">Select Followers</label>
+          <div class="row">
+            <select id="followers" name="followers" aria-label="followers">
+              <option value="10">10 Followers</option>
+              <option value="25">25 Followers</option>
+              <option value="50">50 Followers</option>
+              <option value="100">100 Followers</option>
+            </select>
+            <div style="flex:1">
+              <label class="small muted">Or choose a custom amount (10 - 1000)</label>
+              <div class="rangeWrap">
+                <input id="followersRange" type="range" min="10" max="1000" step="10" value="10" />
+                <div id="rangeValue" class="faux-result">10</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <button type="submit" id="submitBtn" class="btn">Get Free Followers</button>
+        </form>
+      </main>
+
+      <aside class="card">
+        <h3 style="margin-top:0">Search / Tools</h3>
+        <div class="row" style="margin-bottom:8px">
+          <input id="searchId" type="text" placeholder="Search Instagram ID or Username" />
+          <button id="searchBtn" class="btn">Search</button>
+        </div>
+        <div id="searchResult" class="faux-result muted">No search performed yet.</div>
+
+        <hr style="margin:12px 0;border:none;border-top:1px solid #ddd" />
+        <h4 style="margin:6px 0">Account Preview</h4>
+        <div style="display:grid;gap:8px">
+          <div><strong>Username:</strong> <span id="previewUser">-</span></div>
+          <div><strong>Email:</strong> <span id="previewEmail">-</span></div>
+          <div><strong>Selected:</strong> <span id="previewFollowers">-</span></div>
+        </div>
+
+        <footer>
+          <div class="muted">This is a static demo (no server). To make a real site you will need a backend and Instagram API integration.</div>
+        </footer>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const followersRange = document.getElementById('followersRange');
+    const rangeValue = document.getElementById('rangeValue');
+    const followersSelect = document.getElementById('followers');
+    const previewUser = document.getElementById('previewUser');
+    const previewEmail = document.getElementById('previewEmail');
+    const previewFollowers = document.getElementById('previewFollowers');
+
+    rangeValue.textContent = followersRange.value;
+    followersRange.addEventListener('input', ()=> rangeValue.textContent = followersRange.value);
+
+    followersSelect.addEventListener('change', ()=>{
+      const val = parseInt(followersSelect.value,10);
+      if(val <= 1000) followersRange.value = val;
+      rangeValue.textContent = followersRange.value;
+      previewFollowers.textContent = followersRange.value + ' followers';
+    });
+
+    document.getElementById('username').addEventListener('input', e=> previewUser.textContent = e.target.value || '-');
+    document.getElementById('email').addEventListener('input', e=> previewEmail.textContent = e.target.value || '-');
+
+    document.getElementById('freeForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const amount = parseInt(document.getElementById('followersRange').value,10);
+      if(!username || !email){ alert('Please fill username and email.'); return; }
+
+      const accountKey = 'getlikes_account_' + username;
+      localStorage.setItem(accountKey, JSON.stringify({username,email,requested: amount}));
+      previewFollowers.textContent = amount + ' followers';
+      alert(`Demo request accepted for ${amount} followers for @${username}`);
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', ()=>{
+      const q = document.getElementById('searchId').value.trim();
+      if(!q){ document.getElementById('searchResult').textContent = 'Please enter an ID or username to search.'; return; }
+      const accountKey = 'getlikes_account_' + q;
+      const stored = localStorage.getItem(accountKey);
+      if(stored){
+        const parsed = JSON.parse(stored);
+        document.getElementById('searchResult').innerHTML = `Found: <strong>@${parsed.username}</strong><br/>Email: ${parsed.email}<br/>Requested: ${parsed.requested}`;
+      } else {
+        document.getElementById('searchResult').textContent = 'No results found in demo storage.';
+      }
+    });
+
+    followersRange.addEventListener('input', ()=> previewFollowers.textContent = followersRange.value + ' followers');
+    document.addEventListener('DOMContentLoaded', ()=> previewFollowers.textContent = followersRange.value + ' followers');
+  </script>
+</body>
+</html>
